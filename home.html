@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hot Restaurant</h1>
+            <h3>We only have 5 tables! I'm hungry!</h3>
+            <hr>
+            <a href="/tables">
+                <button class="btn btn-success btn-lg">
+                    <span class="fa fa-coffee"></span> View Tables</button>
+            </a>
+
+            <a href="/reservations">
+                <button class="btn btn-success btn-lg">
+                    <span class="fa fa-key"></span> Make Reservation</button>
+            </a>
+
+            <a href="/">
+                <button class="btn btn-success btn-lg">
+                    <span class="fa fa-fort-awesome"></span> Clear Reservations</button>
+            </a>
+
+        </div>
+        <div class="row">
+
+
+
+        </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+        // Question: What does this code do?
+        $("#add-btn").on("click", function (event) {
+            event.preventDefault();
+
+            var newCharacter = {
+                name: $("#name").val().trim(),
+                role: $("#role").val().trim(),
+                age: $("#age").val().trim(),
+                forcePoints: $("#force-points").val().trim()
+            };
+
+            // Question: What does this code do??
+            $.post("/api/reservations", newCharacter)
+                .then(function (data) {
+                    console.log(data);
+                    alert("Adding table...");
+                });
+
+        });
+
+		
+		
+    </script>
+</body>
+<footer>
+    <div class="container">
+        <p>
+            <a href="api/tables">API Table Link</a>
+            | 
+            <a href="api/waitlist">API Wait List</a>
+        </p>
+    </div>
+ </footer>
+
+</html>
+
+
+

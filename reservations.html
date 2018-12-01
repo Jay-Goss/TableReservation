@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reservations</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hot Restaurant - Reservations</h1>
+            <h3>I'm hungry</h3>
+            <hr>
+            <a href="/tables"><button class="btn btn-success btn-lg"><span class="fa fa-eye"></span> View Tables</button></a>
+            <a href="/home"><button class="btn btn-success btn-lg"><span class="fa fa-home"></span> Home</button></a>
+        </div>
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            Make a Reservation
+                        </div>
+                        <div class="card-body">
+                            <form role="form">
+
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="role">Phone Number</label>
+                                    <input type="text" class="form-control" id="role">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age">Email</label>
+                                    <input type="text" class="form-control" id="age">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="force-points">Unique ID</label>
+                                    <input type="text" class="form-control" id="force-points">
+                                </div>
+
+                                <a href="/"><button id="add-table" class="btn btn-success btn-lg"><span class="fa fa-check-square-o"></span>
+                                        Submit Reservation</button></a>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <br>
+                <br>
+                <br>
+
+            </div>
+
+            <script type="text/javascript">
+
+                $.get("/api/reservations", function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+                        var listGroupItem = $("<li class='list-group-item'>");
+
+                        listGroupItem.append($("<h2>").text("Name: " + data[i].name));
+                        listGroupItem.append($("<h3>").text("Role: " + data[i].role));
+                        listGroupItem.append($("<h3>").text("Age: " + data[i].age));
+                        listGroupItem.append($("<h3>").text("Force Points: " + data[i].forcePoints));
+
+                        $("#character-section").append(listGroupItem);
+                    }
+                });
+            </script>
+			
+			
+			<script type="text/javascript">
+    // Question: What does this code do?
+    $("#add-table").on("click", function(event) {
+      event.preventDefault();
+      var newTable = {
+        name: $("#name").val().trim(),
+        phone: $("#role").val().trim(),
+        email: $("#age").val().trim(),
+        uniqueId: $("#force-points").val().trim()
+      };
+
+      // Question: What does this code do??
+      $.post("/api/reservations", newTable)
+        .then(function(data) {
+          console.log("reservations.html", data);
+          alert("Adding Table...");
+        });
+		
+	  $('#name').val('');
+      $('#role').val('');
+      $('#age').val('');
+      $('#force-points').val('');
+    });
+  </script>
+
+</body>
+<footer>
+    <div class="container">
+        <p>
+            <a href="api/tables">API Table Link</a>
+            | 
+            <a href="api/waitlist">API Wait List</a>
+        </p>
+    </div>
+ </footer>
+
+</html>
